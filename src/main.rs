@@ -18,10 +18,10 @@ impl Calculate for MyCalculate {
     ) -> Result<Response<ResultResponse>, Status> {
         println!("Got a request: {:?}", request);
 
-        // request.get_ref().operant_first;
+        // request.get_ref().operand_first;
 
-        let first = request.get_ref().operant_first;
-        let second = request.get_ref().operant_second;
+        let first = request.get_ref().operand_first;
+        let second = request.get_ref().operand_second;
 
         let reply = calculate::ResultResponse {
             result: first + second,
@@ -36,8 +36,8 @@ impl Calculate for MyCalculate {
     ) -> Result<Response<ResultResponse>, Status> {
         println!("Got a request: {:?}", request);
 
-        let first = request.get_ref().operant_first;
-        let second = request.get_ref().operant_second;
+        let first = request.get_ref().operand_first;
+        let second = request.get_ref().operand_second;
 
         let reply = calculate::ResultResponse {
             result: first - second,

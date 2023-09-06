@@ -7,12 +7,12 @@ service Calculate {
 }
 
 message UnaryRequest {
-  int32 operant = 1;
+  int32 operand = 1;
 }
 
 message BinaryRequest {
-  int32 operant_first = 1;
-  int32 operant_second = 2;
+  int32 operand_first = 1;
+  int32 operand_second = 2;
 
 }
 
