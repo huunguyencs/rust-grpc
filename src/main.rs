@@ -1,27 +1,48 @@
 use tonic::{transport::Server, Request, Response, Status};
 
-use hello_world::greeter_server::{Greeter, GreeterServer};
-use hello_world::{HelloReply, HelloRequest};
+use calculate::calculate_server::{Calculate, CalculateServer};
+use calculate::{BinaryRequest, ResultResponse};
 
-pub mod hello_world {
-    tonic::include_proto!("helloworld");
+pub mod calculate {
+    tonic::include_proto!("calculate");
 }
 
 #[derive(Debug, Default)]
-pub struct MyGreeter {}
+pub struct MyCalculate {}
 
 #[tonic::async_trait]
-impl Greeter for MyGreeter {
-    async fn say_hello(
+impl Calculate for MyCalculate {
+    async fn add(
         &self,
-        request: Request<HelloRequest>
-    ) -> Result<Response<HelloReply>, Status> {
+        request: Request<BinaryRequest>,
+    ) -> Result<Response<ResultResponse>, Status> {
         println!("Got a request: {:?}", request);
 
-        let reply = hello_world::HelloReply {
-            message: format!("Hello {}!", request.into_inner().name).into(),
+        // request.get_ref().operant_first;
+
+        let first = request.get_ref().operant_first;
+        let second = request.get_ref().operant_second;
+
+        let reply = calculate::ResultResponse {
+            result: first + second,
         };
-        
+
+        Ok(Response::new(reply))
+    }
+
+    async fn minus(
+        &self,
+        request: Request<BinaryRequest>,
+    ) -> Result<Response<ResultResponse>, Status> {
+        println!("Got a request: {:?}", request);
+
+        let first = request.get_ref().operant_first;
+        let second = request.get_ref().operant_second;
+
+        let reply = calculate::ResultResponse {
+            result: first - second,
+        };
+
         Ok(Response::new(reply))
     }
 }
@@ -29,11 +50,12 @@ impl Greeter for MyGreeter {
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let addr = "[::1]:50051".parse()?;
-    let greeter = MyGreeter::default();
+    let calculator = MyCalculate::default();
 
     Server::builder()
-        .add_service(GreeterServer::new(greeter))
-        .serve(addr).await?;
+        .add_service(CalculateServer::new(calculator))
+        .serve(addr)
+        .await?;
 
     Ok(())
 }

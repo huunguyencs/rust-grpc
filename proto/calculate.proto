@@ -1,0 +1,21 @@
+syntax = "proto3";
+package calculate;
+
+service Calculate {
+  rpc Add (BinaryRequest) returns (ResultResponse);
+  rpc Minus (BinaryRequest) returns (ResultResponse);
+}
+
+message UnaryRequest {
+  int32 operant = 1;
+}
+
+message BinaryRequest {
+  int32 operant_first = 1;
+  int32 operant_second = 2;
+
+}
+
+message ResultResponse {
+  int32 result = 1;
+}

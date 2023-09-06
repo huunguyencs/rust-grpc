@@ -12,16 +12,16 @@ sudo apt install libprotobuf-dev
 ## 2. Run:
 
 ```
-cargo run --bin helloworld-server
+cargo run --bin calculate-server
 ```
 
 ## 3. Test
 
 ```
-grpcurl -plaintext -import-path ./proto -proto helloworld.proto -d '{"name": "Tonic"}' '[::1]:50051' helloworld.Greeter/SayHello
+grpcurl -plaintext -import-path ./proto -proto calculate.proto -d '{"operant_first": 1, "operant_second": 2}' '[::1]:50051' calculate.Calculate/Add
 ```
 
 Response:
 {
-"message": "Hello Tonic!"
+"result": 3
 }
