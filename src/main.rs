@@ -1,7 +1,7 @@
 use tonic::{transport::Server, Request, Response, Status};
 
 use calculate::calculate_server::{Calculate, CalculateServer};
-use calculate::{BinaryRequest, ResultResponse};
+use calculate::{BinaryRequest, HelloRequest, HelloResponse, ResultResponse};
 
 pub mod calculate {
     tonic::include_proto!("calculate");
@@ -41,6 +41,21 @@ impl Calculate for MyCalculate {
 
         let reply = calculate::ResultResponse {
             result: first - second,
+        };
+
+        Ok(Response::new(reply))
+    }
+
+    async fn hello(
+        &self,
+        request: Request<HelloRequest>,
+    ) -> Result<Response<HelloResponse>, Status> {
+        println!("Got a request: {:?}", request);
+
+        let name = request.into_inner().name;
+
+        let reply = calculate::HelloResponse {
+            greeter: format!("Hello {}", name).into(),
         };
 
         Ok(Response::new(reply))

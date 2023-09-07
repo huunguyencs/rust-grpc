@@ -4,6 +4,9 @@ package calculate;
 service Calculate {
   rpc Add (BinaryRequest) returns (ResultResponse);
   rpc Minus (BinaryRequest) returns (ResultResponse);
+
+  rpc Hello (HelloRequest) returns (HelloResponse);
+
 }
 
 message UnaryRequest {
@@ -18,4 +21,12 @@ message BinaryRequest {
 
 message ResultResponse {
   int32 result = 1;
+}
+
+message HelloRequest {
+  string name = 1;
+}
+
+message HelloResponse {
+  string greeter = 1;
 }
