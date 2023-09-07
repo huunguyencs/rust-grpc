@@ -52,7 +52,7 @@ impl Calculate for MyCalculate {
     ) -> Result<Response<HelloResponse>, Status> {
         println!("Got a request: {:?}", request);
 
-        let name = request.into_inner().name;
+        let name = request.get_ref().name.clone();
 
         let reply = calculate::HelloResponse {
             greeter: format!("Hello {}", name).into(),
