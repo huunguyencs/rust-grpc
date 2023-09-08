@@ -18,7 +18,7 @@ cargo run --bin calculate-server
 ## 3. Test
 
 ```
-grpcurl -plaintext -import-path ./proto -proto calculate.proto -d '{"operand_first": 1, "operand_second": 2}' '[::1]:50051' calculate.Calculate/Add
+grpcurl -plaintext -import-path ./proto -proto calculate.proto -d '{"operand_first": 1, "operand_second": 2}' '127.0.0.1:50051' calculate.Calculate/Add
 ```
 
 Response:
