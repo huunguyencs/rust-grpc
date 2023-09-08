@@ -25,3 +25,13 @@ Response:
 {
 "result": 3
 }
+
+## 4. Build docker
+
+```
+docker build -t calculate-server .
+```
+
+```
+docker run -dp 0.0.0.0:50051:50051 calculate-server
+```
